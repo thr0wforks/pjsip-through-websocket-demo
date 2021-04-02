@@ -63,7 +63,7 @@ signal.signal(signal.SIGINT, signal_handler)
 try:
     lib = pj.Lib()
     # Init library with default config
-    lib.init(log_cfg=pj.LogConfig(level=3, callback=log_cb))
+    lib.init(log_cfg=pj.LogConfig(level=6, callback=log_cb))
 
     # Create UDP transport which listens to any available port
     lib.create_transport(pj.TransportType.UDP)
