@@ -17,9 +17,6 @@ logger = logging.getLogger('wssip')
 
 CONFIGFILE = 'websocketsip.conf'
 
-
-
-
 try:
     config = cf.ConfigParser()
     config.readfp(open(CONFIGFILE))
@@ -79,10 +76,10 @@ try:
         acc_cfg = pj.AccountConfig(server, login, password)
         acc = lib.create_account(acc_cfg)
 
-    except pj.Error, err:
+    except pj.Error as err:
         logger.info('Error creating account: %s', err)
 
-except pj.Error, e:
+except pj.Error as e:
     logger.error("Exception: %s", str(e))
     lib.destroy()
     lib = None
