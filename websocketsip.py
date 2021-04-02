@@ -28,6 +28,7 @@ try:
     server = config.get('SIP', 'server')
     login = config.get('SIP', 'login')
     password = config.get('SIP', 'password')
+    localport = config.getint('SIP', 'localport')    
     sockethost = config.get('WEBSOCKET', 'host')
     if sockethost == '*':
         sockethost = ''
@@ -66,7 +67,7 @@ try:
     lib.init(log_cfg=pj.LogConfig(level=6, callback=log_cb))
 
     # Create UDP transport which listens to any available port
-    tcfg = pj.TransportConfig(port=7000)
+    tcfg = pj.TransportConfig(port=localport)
     lib.create_transport(pj.TransportType.UDP, tcfg)
 
     # Start the library
