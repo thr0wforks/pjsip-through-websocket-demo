@@ -66,7 +66,8 @@ try:
     lib.init(log_cfg=pj.LogConfig(level=6, callback=log_cb))
 
     # Create UDP transport which listens to any available port
-    lib.create_transport(pj.TransportType.UDP)
+    tcfg = pj.TransportConfig(port=7000)
+    lib.create_transport(pj.TransportType.UDP, tcfg)
 
     # Start the library
     lib.start()
