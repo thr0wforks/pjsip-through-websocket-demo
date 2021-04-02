@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-import ConfigParser as cf
+import configparser as cf
 import signal
 import pjsua as pj
 import logging
