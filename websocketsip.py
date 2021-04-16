@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-import configparser as cf
 import signal
 import pjsua as pj
 import logging
@@ -11,37 +10,21 @@ from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 from jsonrpc import JSONRPCResponseManager, dispatcher
 from jsonrpc.jsonrpc2 import JSONRPC20Request
 
+import sys
+if sys.version_info.major == 3:
+    unicode = str
+
 logging.config.fileConfig('logging.conf')
 logger = logging.getLogger('wssip')
 
-
-CONFIGFILE = 'websocketsip.conf'
-
-try:
-    config = cf.ConfigParser()
-    config.readfp(open(CONFIGFILE))
-    config.read(['site.cfg', os.path.expanduser('~/.myapp.cfg')])
-except IOError:
-    logger.error('Failed to load config file: %s' % CONFIGFILE)
-    sys.exit(-1)
-try:
-    server = config.get('SIP', 'server')
-    login = config.get('SIP', 'login')
-    password = config.get('SIP', 'password')
-    localport = config.getint('SIP', 'localport')    
-    sockethost = config.get('WEBSOCKET', 'host')
-    if sockethost == '*':
-        sockethost = ''
-    socketport = config.getint('WEBSOCKET', 'port')
-except cf.NoOptionError as e:
-    logger.error(e)
-    sys.exit(-1)
-except cf.NoSectionError as e:
-    logger.error(e)
-    sys.exit(-1)
-except Exception as e:
-    logger.exception(e)
-    sys.exit(-1)
+server = "186.209.79.26"
+login = "7009"
+password = "D39q&#D96t"
+localport = 7000
+sockethost = "*"
+if sockethost == '*':
+    sockethost = ''
+socketport = 8066
 
 lib = None
 acc = None
@@ -230,7 +213,7 @@ class Dispatcher:
         logger.debug('called mute_mic method')
         if not self.lib:
             return
-        tx_level, rx_level = self.lib.conf_get_signal_level(0)
+        _tx_level, rx_level = self.lib.conf_get_signal_level(0)
         if rx_level > 0.0:
             self.lib.conf_set_rx_level(0, 0)
             levels = self.lib.conf_get_signal_level(0)
